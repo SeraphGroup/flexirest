@@ -459,7 +459,11 @@ module Flexirest
             end
           end
         else
-          object._attributes[k] = parse_attribute_value(v) unless @method[:options][:noparse]
+          if @method[:options][:noparse]
+            object._attributes[k] = v
+          else
+            object._attributes[k] = parse_attribute_value(v)
+          end
         end
       end
       object.clean! unless object_is_class?
